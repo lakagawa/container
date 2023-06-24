@@ -1,10 +1,10 @@
 version: '3.8'
 services:
   app:
-#    image: lalakagawa/my-node-app:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: my-node-app
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     deploy:
       replicas: 3
       restart_policy:
