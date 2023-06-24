@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    image: lalakagawa/my-node-app:latest
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: any
+    ports:
+      - 8080:3000
