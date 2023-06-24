@@ -13,6 +13,11 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
+ENV DB_HOST=db
+ENV DB_USER=mynodeapp
+ENV DB_PASSWORD=mynodeapp
+ENV DB_DATABASE=mydb
+
 # Expose the port that the application will run on
 EXPOSE 3000
 

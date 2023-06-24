@@ -1,5 +1,6 @@
 const express = require('express');
 const data = require('../data');
+const { getCards, saveCard } = require('../repository/cardRepository')
 
 const router = express.Router();
 /**
@@ -16,7 +17,12 @@ const router = express.Router();
  *               type: string
  */
 router.get('/', (req, res) => {
-   res.json(data);
+    getCards((error, cards) => {
+        if (error) {
+          return res.status(500).json({ error: 'Erro ao listar os cards.' });
+        }
+        return res.json(cards);
+      });
 });
 
 /**
@@ -31,7 +37,7 @@ router.get('/', (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               description:
  *                 type: string
  *     responses:
  *       201:
@@ -43,8 +49,15 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
     const newItem = req.body;
-    data.push(newItem);
-    res.status(201).json(newItem);
+    if(!newItem) {
+        return res.status(400).json({ error: 'Descrição obrigatória' });
+    }
+    saveCard(newItem, (error, cards) => {
+        if (error) {
+          return res.status(500).json({ error: 'Erro ao salvar o card' });
+        }
+        return res.status(201).json({ message: 'Card salvo com sucesso' });
+      });
  });
 
 module.exports = router;
