@@ -10,6 +10,7 @@ const connection = require('mysql').createConnection({
   });
 
 connection.connect((err) => {
+  console.log(process.env.DB_PASSWORD)
   if (err) {
     console.error('Erro ao conectar MySQL:', err);
     return;
